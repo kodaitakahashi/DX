@@ -24,7 +24,7 @@ void stack_push(double val){
 double stack_pop(void){
   if(stack_top == 0){
     /*スタックには何もない */
-    printf("エラー:スタックが空なのにpopが呼ばれました""(stack underflor)\n");
+    printf("エラー:スタックが空なのにpopが呼ばれました (stack underflor)\n");
        exit(EXIT_FAILURE);
 
        return 0;
@@ -33,6 +33,6 @@ double stack_pop(void){
     {
       /*一番上の値を返す */
       --stack_top;
-      return stack[stack_pop];
+      return stack[stack_top];
     }
 }

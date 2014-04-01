@@ -1,4 +1,4 @@
-#difine STACK_MAX 10
+#define STACK_MAX 10
 
 /*double型のデータを格納するスタックを作成*/
 double stack[STACK_MAX];

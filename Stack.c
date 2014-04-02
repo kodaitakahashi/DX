@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #define STACK_MAX 10
 
 /*double型のデータを格納するスタックを作成*/
@@ -17,6 +19,9 @@ void stack_push(double val){
       /*渡された値をスタックに積む */
       stack[stack_top]=val;
       ++stack_top;
+      if (stack_top == STACK_MAX){
+        printf("スタックが満タン\n");
+      }
     }
 }
 
@@ -33,6 +38,26 @@ double stack_pop(void){
     {
       /*一番上の値を返す */
       --stack_top;
+      if (stack_top == 0){
+       printf("スタックが空になりました。\n");
+      }
+
       return stack[stack_top];
     }
 }
+
+int main(void){
+  double cnt=0,var;
+  while(cnt < STACK_MAX){
+    stack_push(cnt);
+    cnt++;
+  }
+  while(0 < stack_pop){
+    var = stack_pop();
+  }
+
+  return 0;
+}
+/*欠点
+include<stdio.h>とinclude<stidlib>が必要
+*/

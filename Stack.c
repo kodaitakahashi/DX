@@ -59,5 +59,5 @@ int main(void){
   return 0;
 }
 /*欠点
-include<stdio.h>とinclude<stidlib>が必要
+include<stdio.h>とinclude<stidlib>が必要  
 */

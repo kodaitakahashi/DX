@@ -60,5 +60,5 @@ int main(void){
   return 0;
 }
 /*欠点
-include<stdio.h>とinclude<stidlib>が必要
+配列にした場合、容量不足が起きる可能性がある。
 */

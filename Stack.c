@@ -40,6 +40,7 @@ double stack_pop(void){
       --stack_top;
       if (stack_top == 0){
        printf("スタックが空になりました。\n");
+       return 0;
       }
 
       return stack[stack_top];

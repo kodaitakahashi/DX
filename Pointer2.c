@@ -10,7 +10,7 @@ int main(void){
 
     exit(1);
   }
-  p = &a;
+  *p = a;
   printf("中身 %d,アドレス %p\n",*p,&p); /* 中身 100,アドレス 0xbfb17348 */
   free(p);
 

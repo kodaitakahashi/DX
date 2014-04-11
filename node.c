@@ -13,7 +13,7 @@ int main(void){
   obj1 = (node_t *)malloc(sizeof(node_t));
   obj2 = (node_t *)malloc(sizeof(node_t));
   obj1->next = NULL;
-  obj2->next = obj1;
+  obj2->next = &obj1;
   free(obj1);
   free(obj2);
 

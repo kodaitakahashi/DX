@@ -35,13 +35,15 @@ int main(void){
       print_stack(stackPt);
       break;
     case 2:
-      if (!Empty(stackPt)){
+      if (!Empty(stackPt)){ //NULLじゃない場合
         stackPt = pop(stackPt,&data);
         printf("popした値は%dです\n",data);
+      }else{
+        printf("スタックは空です\n");
       }
       break;
     case 3:
-      if("Empty(stackPt)"){
+      if(!Empty(stackPt)){ //NULLじゃない場合 
         print_stack(stackPt);
       }else{
         printf("スタックは空です\n");
@@ -95,8 +97,7 @@ void print_stack(node_t *stackPt){
     printf("スタックの中身が空です\n");
   }else{
     while(stackPt != NULL){
-      printf("[%d",stackPt -> data);
-      printf("]\n");
+      printf("[%d]\n",stackPt -> data);
       stackPt = stackPt->next;
     }
   }

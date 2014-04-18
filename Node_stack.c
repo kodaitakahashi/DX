@@ -1,6 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+enum menu{
+  PUSH=1,
+  POP,
+  PRINT,
+  END,
+};
+
 typedef int data_t;
 
 typedef struct nodetag{
@@ -8,65 +15,70 @@ typedef struct nodetag{
   struct nodetag *next;
 } node_t;
 
-node_t *push(node_t *stackPt , data_t data);//スタックの中身に値を入れる
-
-node_t *pop(node_t *stackPt , data_t *data); //スタックの中身から一番上の値を抜く
-
-int Empty(node_t *stackPt);// スタックの中身が空の時に使用
-
-void print_stack(node_t *stackPt ); //スタックの中身を表示
-
+node_t *push(node_t *stack , data_t data);//スタックの中身に値を入れる
+node_t *pop(node_t *stack , data_t *data); //スタックの中身から一番上の値を抜く
+int isEnpty(node_t *stack);// スタックの中身が空の時に使用
+void printStack(node_t *stack ); //スタックの中身を表示
 void usage(void);//メニュー表示
+void run(void);
 
 int main(void){
-  node_t *stackPt = NULL;
+  run();
+  return 0;
+}
+
+void run(){
+  node_t *stack = NULL;
   data_t data;
   int menu;
 
-  usage();
-  printf("メニュー番号を入力してください: ");
-  scanf("%d",&menu);
-  while(menu != 4){
+  while(menu != END){
+    usage();
+    printf("メニュー番号を入力してください: ");
+    scanf("%d",&menu);
     switch(menu){
-    case 1:
+
+    case PUSH:
       printf("スタックにpushする整数を入力してください:");
       scanf("%d",&data);
-      stackPt = push(stackPt,data);
-      print_stack(stackPt);
+      stack = push(stack,data);
+      printStack(stack);
       break;
-    case 2:
-      if (!Empty(stackPt)){ //NULLじゃない場合
-        stackPt = pop(stackPt,&data);
+
+    case POP:
+      if (!isEnpty(stack)){ //NULLじゃない場合
+        stack = pop(stack,&data);
         printf("popした値は%dです\n",data);
       }else{
         printf("スタックは空です\n");
       }
       break;
-    case 3:
-      if(!Empty(stackPt)){ //NULLじゃない場合 
-        print_stack(stackPt);
+
+    case PRINT:
+      if(!isEnpty(stack)){ //NULLじゃない場合 
+        printStack(stack);
       }else{
         printf("スタックは空です\n");
       }
       break;
+
+    case END:
+      printf("終了します\n");
+      break;
+
     default:
       printf("番号に不正があります。正しく入力してください\n");
-      usage();
       break;
     }
-    printf("メニュー番号を入力してください:");
-    scanf("%d",&menu);
   }
-
-  return 0;
 }
 
 void usage(void){
   printf("1:スタックに値をpushする\n2:スタックから値をpopすり\n3:スタックを表示する\n4:終了\n");
 }
 
-int Empty(node_t *stackPt){
-  return stackPt == NULL;
+int isEnpty(node_t *stack){
+  return stack == NULL;
 }
 
 node_t *push(node_t *topPt,data_t data){
@@ -74,7 +86,7 @@ node_t *push(node_t *topPt,data_t data){
   newPt = (node_t *)malloc(sizeof(node_t)); //メモリ確保
   if(newPt != NULL){
     newPt->data = data; //新規ノードに挿入する値を代入
-    newPt->next = topPt;//新規ノードにtopPt(stackPt)のアドレスを代入
+    newPt->next = topPt;//新規ノードにtopPt(stack)のアドレスを代入
     topPt = newPt; //topPtに新規ノードのアドレスを代入。この操作によりtopPtが新たなデータを指すようになる。
   }else{
     printf("メモリが不足しています\n");
@@ -89,16 +101,16 @@ node_t *pop(node_t *topPt,data_t *pop_value){
   topPt = topPt -> next;//topPtにtopPtのnextに代入
   free (tmpPt);//tmpPt(topPt）のメモリを開放
   return topPt;
-  }
+}
 
 
-void print_stack(node_t *stackPt){
-  if (stackPt == NULL){
+void printStack(node_t *stack){
+  if (stack == NULL){
     printf("スタックの中身が空です\n");
   }else{
-    while(stackPt != NULL){
-      printf("[%d]\n",stackPt -> data);
-      stackPt = stackPt->next;
+    while(stack != NULL){
+      printf("[%d]\n",stack -> data);
+      stack = stack->next;
     }
   }
 }

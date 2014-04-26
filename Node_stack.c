@@ -15,6 +15,8 @@ typedef struct nodetag{
   struct nodetag *next;
 } node_t;
 
+node_t *stack = NULL;
+data_t data;
 
 void *push(node_t* , data_t );//スタックの中身に値を入れる
 int *pop(node_t* , data_t* ); //スタックの中身から一番上の値を抜く
@@ -31,8 +33,8 @@ int main(void){
 }
 
 void run(){
-  node_t *stack = NULL;
-  data_t data;
+  //  node_t *stack = NULL;
+  //  data_t data;
   int menu;
 
   while(menu != END){
@@ -76,7 +78,7 @@ void runPush(node_t *stack,data_t data){
 }
 
 void runPop(node_t *stack,data_t data){
-      int *i;
+      data_t *i;
       if (!isEnpty(stack)){ //NULLじゃない場合
         i = pop(stack,&data);
         printf("popした値は%dです\n",i);
@@ -102,19 +104,19 @@ void *push(node_t *top,data_t data){
     new->data = data; //新規ノードに挿入する値を代入
     new->next = top;//新規ノードにtop(stack)のアドレスを代入
     top = new; //topに新規ノードのアドレスを代入。この操作によりtopが新たなデータを指すようになる。
+    stack = top;
   }else{
     printf("メモリが不足しています\n");
       }
 }
 
-int *pop(node_t *top,data_t *pop_value){
+data_t *pop(node_t *top,data_t *pop_value){
   node_t *tmp;
   tmp = top;
   *pop_value =top->data; //*pop_value(*data)にtopのdataを代入 
   top = top -> next;//topにtopのnextに代入
   free (tmp);//tmp(top）のメモリを開放
-
-  return pop_value;
+  return &data;
 }
 
 

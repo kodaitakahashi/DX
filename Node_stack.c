@@ -18,14 +18,14 @@ typedef struct nodetag{
 node_t *stack = NULL;
 data_t data;
 
-void *push(node_t* , data_t );//スタックの中身に値を入れる
-int *pop(node_t* , data_t* ); //スタックの中身から一番上の値を抜く
-int isEnpty(node_t* );// スタックの中身が空の時に使用
-void printStack(node_t*  ); //スタックの中身を表示
+void *push( data_t );//スタックの中身に値を入れる
+data_t *pop(); //スタックの中身から一番上の値を抜く
+data_t isEnpty();// スタックの中身が空の時に使用
+void printStack(node_t*); //スタックの中身を表示
 void usage(void);//メニュー表示
 void run(void);
-void runPush(node_t*,data_t );
-void runPop(node_t*,data_t );
+void runPush(data_t );
+void runPop(data_t );
 
 int main(void){
   run();
@@ -44,11 +44,11 @@ void run(){
     switch(menu){
 
     case PUSH:
-      runPush(stack,data);
+      runPush(data);
       break;
 
     case POP:
-      runPop(stack,data);
+      runPop(data);
       break;
 
     case PRINT:
@@ -70,18 +70,18 @@ void run(){
   }
 }
 
-void runPush(node_t *stack,data_t data){
+void runPush(data_t data){
       printf("スタックにpushする整数を入力してください:");
       scanf("%d",&data);
-      push(stack,data);
+      push(data);
       printStack(stack);
 }
 
-void runPop(node_t *stack,data_t data){
-      data_t *i;
+void runPop(data_t data){
+      data_t *dataReturn;
       if (!isEnpty(stack)){ //NULLじゃない場合
-        i = pop(stack,&data);
-        printf("popした値は%dです\n",i);
+        dataReturn = pop();
+        printf("popした値は%dです\n",dataReturn);
       }else{
         printf("スタックは空です\n");
       }
@@ -93,30 +93,31 @@ void usage(void){
   printf("1:スタックに値をpushする\n2:スタックから値をpopすり\n3:スタックを表示する\n4:終了\n");
 }
 
-int isEnpty(node_t *stack){
+int isEnpty(){
   return stack == NULL;
 }
 
-void *push(node_t *top,data_t data){
+void *push(data_t data){
   node_t *new; //新規ノード作成
   new = (node_t *)malloc(sizeof(node_t)); //メモリ確保
   if(new != NULL){
     new->data = data; //新規ノードに挿入する値を代入
-    new->next = top;//新規ノードにtop(stack)のアドレスを代入
-    top = new; //topに新規ノードのアドレスを代入。この操作によりtopが新たなデータを指すようになる。
-    stack = top;
+    new->next = stack;//新規ノードにtop(stack)のアドレスを代入
+    stack = new; //topに新規ノードのアドレスを代入。この操作によりtopが新たなデータを指すようになる。
+
   }else{
     printf("メモリが不足しています\n");
       }
 }
 
-data_t *pop(node_t *top,data_t *pop_value){
+data_t *pop(){
   node_t *tmp;
-  tmp = top;
-  *pop_value =top->data; //*pop_value(*data)にtopのdataを代入 
-  top = top -> next;//topにtopのnextに代入
+  data_t *popdata;
+  tmp = stack;
+  stack = stack -> next;//topにtopのnextに代入
+  popdata = tmp->data;
   free (tmp);//tmp(top）のメモリを開放
-  return &data;
+  return popdata;
 }
 
 

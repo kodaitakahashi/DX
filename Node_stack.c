@@ -33,8 +33,6 @@ int main(void){
 }
 
 void run(){
-  //  node_t *stack = NULL;
-  //  data_t data;
   int menu;
 
   while(menu != END){
@@ -102,8 +100,8 @@ void *push(data_t data){
   new = (node_t *)malloc(sizeof(node_t)); //メモリ確保
   if(new != NULL){
     new->data = data; //新規ノードに挿入する値を代入
-    new->next = stack;//新規ノードにtop(stack)のアドレスを代入
-    stack = new; //topに新規ノードのアドレスを代入。この操作によりtopが新たなデータを指すようになる。
+    new->next = stack;//新規ノードにstackのアドレスを代入
+    stack = new; //stackに新規ノードのアドレスを代入。この操作によりstackが新たなデータを指すようになる。
 
   }else{
     printf("メモリが不足しています\n");
@@ -114,9 +112,9 @@ data_t *pop(){
   node_t *tmp;
   data_t *popdata;
   tmp = stack;
-  stack = stack -> next;//topにtopのnextに代入
+  stack = stack -> next;//stackにstackのnextに代入
   popdata = tmp->data;
-  free (tmp);//tmp(top）のメモリを開放
+  free (tmp);//tmp(stack）のメモリを開放
   return popdata;
 }
 

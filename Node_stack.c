@@ -24,8 +24,8 @@ data_t isEnpty();// スタックの中身が空の時に使用
 void printStack(node_t*); //スタックの中身を表示
 void usage(void);//メニュー表示
 void run(void);
-void runPush(data_t );
-void runPop(data_t );
+void runPush();
+void runPop();
 
 int main(void){
   run();
@@ -42,11 +42,11 @@ void run(){
     switch(menu){
 
     case PUSH:
-      runPush(data);
+      runPush();
       break;
 
     case POP:
-      runPop(data);
+      runPop();
       break;
 
     case PRINT:
@@ -68,14 +68,14 @@ void run(){
   }
 }
 
-void runPush(data_t data){
+void runPush(){
       printf("スタックにpushする整数を入力してください:");
       scanf("%d",&data);
       push(data);
       printStack(stack);
 }
 
-void runPop(data_t data){
+void runPop(){
       data_t *dataReturn;
       if (!isEnpty(stack)){ //NULLじゃない場合
         dataReturn = pop();

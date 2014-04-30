@@ -86,7 +86,6 @@ void runPop(){
 
 }
 
-
 void usage(void){
   printf("1:スタックに値をpushする\n2:スタックから値をpopすり\n3:スタックを表示する\n4:終了\n");
 }
@@ -113,7 +112,7 @@ data_t *pop(){
   data_t *popdata;
   tmp = stack;
   stack = stack -> next;//stackにstackのnextに代入
-  popdata = tmp->data;
+  popdata = &(tmp->data);
   free (tmp);//tmp(stack）のメモリを開放
   return popdata;
 }
